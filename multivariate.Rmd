@@ -1,0 +1,26 @@
+
+```{r, echo=FALSE,warning=FALSE,message=FALSE}
+library(MASS)
+library(tidyverse)
+library(kableExtra)
+library(plotly)
+
+set.seed(3)
+
+x <- round(rnorm(20, 72, 10))
+y <- round(rnorm(20, 5, 2) * .57 + scale(x) * .43, 2)
+z <- round(rnorm(20, 0, .75)) * .32 + scale(x) * .14 + scale(y) * .54
+
+data <- data.frame(cbind(x, y, z))
+
+colnames(data) <- c("grades", "selfesteem", "happiness")
+
+p <- plot_ly(data, x = ~grades, y = ~selfesteem, z = ~happiness, color = ~happiness) %>%
+  add_markers() %>%
+  layout(scene = list(xaxis = list(title = 'Grades'),
+                      yaxis = list(title = 'Self-esteem'),
+                      zaxis = list(title = 'Happiness')))
+
+p
+```
+
